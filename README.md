@@ -2,6 +2,8 @@
 
 Webカメラの映像から **Google MediaPipe Pose** を用いて骨格・姿勢をリアルタイム解析し、スクワットおよび両手上げ下げ運動（アームレイズ）の回数カウントとフォーム判定を行うWebアプリケーションです。
 
+🌐 **ライブデモ (GitHub Pages)**: [https://yamaguchitoshi.github.io/mediapipe-exercise-counter/](https://yamaguchitoshi.github.io/mediapipe-exercise-counter/)
+
 ---
 
 ## 🌟 主な機能
@@ -39,6 +41,7 @@ Webカメラの映像から **Google MediaPipe Pose** を用いて骨格・姿�
 - **姿勢推定エンジン**: `@mediapipe/tasks-vision` (MediaPipe PoseLandmarker)
 - **アイコン & エフェクト**: `lucide-react`, `canvas-confetti`
 - **音声**: Web Audio API (シンセサイザー), Web Speech API (音声合成)
+- **ホスティング**: GitHub Pages (GitHub Actions CI/CD)
 
 ---
 
