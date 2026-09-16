@@ -130,7 +130,8 @@ src/
 │   ├── MetricsPanel.tsx   # タイマー・カロリー・ペース・左右関節角度メーター
 │   ├── SettingsModal.tsx  # 難易度・目標回数・音声・カメラミラー・体重設定
 │   ├── HistoryPanel.tsx   # 現セッション詳細ログ & 過去履歴（LocalStorage）
-│   └── WorkoutCompleteModal.tsx # 目標達成モーダル（紙吹雪 & サマリー）
+│   ├── WorkoutCompleteModal.tsx # 目標達成モーダル（紙吹雪 & サマリー）
+│   └── CloudflareAnalytics.tsx  # Cloudflare Web Analytics ビーコン埋め込み
 ├── hooks/
 │   ├── useExerciseDetector.ts # 姿勢解析ループ・ステートマシン統合フック
 │   └── useSquatDetector.ts    # 後方互換性エイリアス
@@ -167,3 +168,21 @@ $$\text{ペース (回/分)} = \frac{\text{総回数}}{\text{経過時間(秒)} 
   - 本番環境ビルド時に `basePath: '/mediapipe-exercise-counter'` を付与。
 - **GitHub Actions (`.github/workflows/deploy.yml`)**:
   - `push` to `main` をトリガーに、Node.js 20 環境で `npm ci` ➜ `npm run build` ➜ `actions/deploy-pages@v4` で自動デプロイ。
+  - GitHub Secrets の `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` または `CLOUDFLARE_ANALYTICS_TOKEN` をビルド時環境変数として自動注入。
+
+---
+
+## 7. Cloudflare Web Analytics の設定方法
+
+本アプリはプライバシーに配慮した軽量アナリティクス「**Cloudflare Web Analytics**」に対応しています。
+
+1. **トークンの取得**:
+   - [Cloudflare ダッシュボード](https://dash.cloudflare.com/) ➜「Web アナリティクス (Web Analytics)」➜ サイトを追加して JS タグの `token`（32文字英数字）を取得。
+2. **ローカル開発環境での利用**:
+   - `.env.local` を作成し、`NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN=あなたのトークン` を記述。
+3. **GitHub Pages 本番環境での利用**:
+   - GitHub リポジトリの **Settings** ➜ **Secrets and variables** ➜ **Actions** ➜ **New repository secret** にて以下を登録：
+     - 名前: `CLOUDFLARE_ANALYTICS_TOKEN` (または `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN`)
+     - 値: 取得したトークン文字列
+   - 次回のデプロイ時にビルド生成されるHTMLへ自動的にビーコンスクリプトが埋め込まれます。
+   - ※トークンが未設定の場合はアナリティクススクリプトは読み込まれず、エラーなく動作します。

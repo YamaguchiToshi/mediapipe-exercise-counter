@@ -63,9 +63,18 @@ npm run dev
 
 ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。
 
+### 3. Cloudflare Web Analytics の設定 (任意)
+
+アクセス解析を行いたい場合は、`.env.local` または GitHub リポジトリの Secrets にトークンを設定してください。
+
+```bash
+NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN="your_token_here"
+```
+
 ---
 
 ## 💡 ご利用のコツ
 
 - カメラから **約2〜3メートル** 離れ、頭から足元（または上半身）が画面に収まるように立ってください。
 - スクワットは横向き〜斜め45度、両手上げ下げ運動は正面を向いて行うと最も安定して測定されます。
+
